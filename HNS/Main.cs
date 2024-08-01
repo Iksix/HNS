@@ -223,6 +223,17 @@ public class Main : BasePlugin, IPluginConfig<PluginConfig>
         return HookResult.Continue;
     }
 
+    [GameEventHandler]
+    public HookResult OnRoundStart(EventRoundStart @event, GameEventInfo info)
+    {
+        if (Api!.Maniacs.Count == 0)
+        {
+            XHelper.RulesProxy()!.GameRules!.TerminateRound(1f, RoundEndReason.RoundDraw);
+        }
+        return HookResult.Continue;
+    }
+    
+
     public void OnRowCommand(CCSPlayerController? caller, CommandInfo info)
     {
         if (caller == null) return;
@@ -259,6 +270,7 @@ public class Main : BasePlugin, IPluginConfig<PluginConfig>
             .Replace("{steamId}", player.SteamID.ToString())
             .Replace("{uid}", player.UserId.ToString());
         }
+        AdminApi!.SendMessageToPlayer(caller, Localizer["rowList"].Value.Replace("{items}", itemsString), Localizer["tag"]);
     }
 
     [GameEventHandler]
