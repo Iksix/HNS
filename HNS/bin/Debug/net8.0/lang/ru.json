@@ -1,0 +1,15 @@
+{
+    "tag" : "[ {gold}HNS{white} ]",
+    "nextManiacs" : "Маньяки в слудющем раунде: {items}",
+    "nextManiacsItem" : "\n{i}. {gold}{name}", // {i}, {name}, {steamId}, {uid}
+
+    "NOTIFY.EnterRow" : "Вы вошли в очередь!\nВаше место: {gold}{num}",
+    "NOTIFY.ExitRow" : "{red}Вы вышли из очереди!",
+    "NOTIFY.DeleteFromRowByChangeTeam" : "{red}Вы были удаленны из очереди из за смены команды!",
+
+    "NOTIFY.AdminDeleteYouFromRow" : "Админ {gold}{name}{white} добавил {gold}ВАС{white} в очередь!",
+    "NOTIFY.AdminAddYouToRow" : "{red}Админ {white}{name}{red} удалил {white}ВАС{red} из очереди!",
+
+    "SERVER.EnterRow" : "Игрок {name} вошёл в очередь!",
+    "SERVER.ExitRow" : "Игрок {name} вышел из очереди!"
+}
