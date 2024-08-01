@@ -1,0 +1,15 @@
+E:\_pluginsWork\HNS\HNSApi\bin\Debug\net8.0\HNSApi.deps.json
+E:\_pluginsWork\HNS\HNSApi\bin\Debug\net8.0\HNSApi.dll
+E:\_pluginsWork\HNS\HNSApi\bin\Debug\net8.0\HNSApi.pdb
+E:\_pluginsWork\HNS\HNSApi\bin\Debug\net8.0\IksAdminApi.dll
+E:\_pluginsWork\HNS\HNSApi\obj\Debug\net8.0\HNSApi.csproj.AssemblyReference.cache
+E:\_pluginsWork\HNS\HNSApi\obj\Debug\net8.0\HNSApi.GeneratedMSBuildEditorConfig.editorconfig
+E:\_pluginsWork\HNS\HNSApi\obj\Debug\net8.0\HNSApi.AssemblyInfoInputs.cache
+E:\_pluginsWork\HNS\HNSApi\obj\Debug\net8.0\HNSApi.AssemblyInfo.cs
+E:\_pluginsWork\HNS\HNSApi\obj\Debug\net8.0\HNSApi.csproj.CoreCompileInputs.cache
+E:\_pluginsWork\HNS\HNSApi\obj\Debug\net8.0\HNSApi.sourcelink.json
+E:\_pluginsWork\HNS\HNSApi\obj\Debug\net8.0\HNSApi.csproj.Up2Date
+E:\_pluginsWork\HNS\HNSApi\obj\Debug\net8.0\HNSApi.dll
+E:\_pluginsWork\HNS\HNSApi\obj\Debug\net8.0\refint\HNSApi.dll
+E:\_pluginsWork\HNS\HNSApi\obj\Debug\net8.0\HNSApi.pdb
+E:\_pluginsWork\HNS\HNSApi\obj\Debug\net8.0\ref\HNSApi.dll

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\_pluginsWork\\HnS\\HnSApi\\HnSApi.csproj": {}
+    "E:\\_pluginsWork\\HNS\\HNSApi\\HNSApi.csproj": {}
   },
   "projects": {
-    "E:\\_pluginsWork\\HnS\\HnSApi\\HnSApi.csproj": {
+    "E:\\_pluginsWork\\HNS\\HNSApi\\HNSApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\_pluginsWork\\HnS\\HnSApi\\HnSApi.csproj",
-        "projectName": "HnSApi",
-        "projectPath": "E:\\_pluginsWork\\HnS\\HnSApi\\HnSApi.csproj",
+        "projectUniqueName": "E:\\_pluginsWork\\HNS\\HNSApi\\HNSApi.csproj",
+        "projectName": "HNSApi",
+        "projectPath": "E:\\_pluginsWork\\HNS\\HNSApi\\HNSApi.csproj",
         "packagesPath": "C:\\Users\\iks\\.nuget\\packages\\",
-        "outputPath": "E:\\_pluginsWork\\HnS\\HnSApi\\obj\\",
+        "outputPath": "E:\\_pluginsWork\\HNS\\HNSApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

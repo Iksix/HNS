@@ -6,6 +6,7 @@ using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Core.Capabilities;
 using CounterStrikeSharp.API.Modules.Commands;
 using CounterStrikeSharp.API.Modules.Entities.Constants;
+using CounterStrikeSharp.API.Modules.Menu;
 using CounterStrikeSharp.API.Modules.Utils;
 using HNS;
 using HnSApi;
@@ -34,6 +35,10 @@ public class Main : BasePlugin, IPluginConfig<PluginConfig>
         Capabilities.RegisterPluginCapability(_hnsCapability, () => Api);
         AddCommandListener("jointeam", OnJoinTeam, HookMode.Pre);
         AddCommandListener("kill", OnKillCommand, HookMode.Pre);
+        foreach (var cmd in Config.RowCommandAliases)
+        {
+            AddCommand(cmd, "join/exit row", OnRowCommand);
+        }
     }
 
     private readonly PluginCapability<IIksAdminApi> _adminCapability = new("iksadmin:core");
@@ -41,8 +46,83 @@ public class Main : BasePlugin, IPluginConfig<PluginConfig>
     public override void OnAllPluginsLoaded(bool hotReload)
     {
         AdminApi = _adminCapability.Get();
+        AdminApi!.AddNewCommand(
+            "edit_row",
+            "Edit row",
+            "css_edit_row",
+            0,
+            "edit_row",
+            "q",
+            CommandUsage.CLIENT_ONLY,
+            OnEditRowCommand
+        );
     }
 
+    private void OnEditRowCommand(CCSPlayerController caller, Admin? admin, List<string> args, CommandInfo info)
+    {
+        OpenEditRowMenu(caller);
+    }
+
+    private void OpenEditRowMenu(CCSPlayerController caller)
+    {
+        var menu = AdminApi!.CreateMenu(EditRowMenu);
+        menu.Open(caller, Localizer["MENUTITLE.EditRow"]);
+    }
+
+    private void EditRowMenu(CCSPlayerController caller, Admin? admin, IMenu menu)
+    {
+        menu.AddMenuOption(Localizer["MENUOPTION.AddToRow"], (_, _) => {
+            OpenAddToRowMenu(caller, menu);
+        });
+        menu.AddMenuOption(Localizer["MENUOPTION.RemoveFromRow"], (_, _) => {
+            OpenRemoveFromRowMenu(caller, menu);
+        });
+    }
+
+    private void OpenRemoveFromRowMenu(CCSPlayerController caller, IMenu backMenu)
+    {
+        var menu = AdminApi!.CreateMenu(RemoveFromRowMenu);
+        menu.Open(caller, Localizer["MENUTITLE.AddToRow"], backMenu);
+    }
+
+    private void RemoveFromRowMenu(CCSPlayerController caller, Admin? admin, IMenu menu)
+    {
+        var playersInRow = Api!.RowToManiacs;
+        
+        foreach (var player in playersInRow.ToArray())
+        {
+            menu.AddMenuOption(player.PlayerName, (_, _) => {
+                if (!playersInRow.Contains(player)) return;
+                playersInRow.Remove(player);
+                AdminApi!.SendMessageToPlayer(player, Localizer["NOTIFY.AdminDeleteYouFromRow"].Value.Replace("{name}", caller.PlayerName), Localizer["tag"]);
+                AdminApi!.SendMessageToPlayer(caller, Localizer["NOTIFY.PlayerRemovedFromRow"], Localizer["tag"]);
+                OpenEditRowMenu(caller);
+            });
+        }
+    }
+
+    private void OpenAddToRowMenu(CCSPlayerController caller, IMenu backMenu)
+    {
+        var menu = AdminApi!.CreateMenu(AddToRowMenu);
+        menu.Open(caller, Localizer["MENUTITLE.AddToRow"], backMenu);
+    }
+
+    private void AddToRowMenu(CCSPlayerController caller, Admin? admin, IMenu menu)
+    {
+        var activePlayers = Api!.GetActivePlayers();
+        
+        foreach (var player in activePlayers)
+        {
+            if (Api.RowToManiacs.Contains(player)) continue;
+            menu.AddMenuOption(player.PlayerName, (_, _) => {
+                if (activePlayers.Contains(player)) return;
+                activePlayers.Add(player);
+                AdminApi!.SendMessageToPlayer(player, Localizer["NOTIFY.AdminAddYouToRow"].Value.Replace("{name}", caller.PlayerName), Localizer["tag"]);
+                AdminApi!.SendMessageToPlayer(caller, Localizer["NOTIFY.PlayerAddedToRow"], Localizer["tag"]);
+                OpenEditRowMenu(caller);
+            });
+        }
+    }
     private HookResult OnKillCommand(CCSPlayerController? player, CommandInfo commandInfo)
     {
         return HookResult.Stop;
@@ -131,7 +211,7 @@ public class Main : BasePlugin, IPluginConfig<PluginConfig>
         for (int i = 0; i < Api.Maniacs.Count; i++)
         {
             var player = Api.Maniacs[i];
-            itemsString += Localizer["nextManiacsItem"].Value
+            itemsString += Localizer["rowItem"].Value
             .Replace("{i}", (i+1).ToString())
             .Replace("{name}", player.PlayerName)
             .Replace("{steamId}", player.SteamID.ToString())
@@ -143,10 +223,15 @@ public class Main : BasePlugin, IPluginConfig<PluginConfig>
         return HookResult.Continue;
     }
 
-    [CommandHelper(whoCanExecute: CommandUsage.CLIENT_ONLY)]
-    [ConsoleCommand("css_row")]
-    public void OnRowCommand(CCSPlayerController caller, CommandInfo info)
+    public void OnRowCommand(CCSPlayerController? caller, CommandInfo info)
     {
+        if (caller == null) return;
+        if ((caller.TeamNum == 2 && !Config.ManiacsCanTakeRow) || caller.TeamNum == 1)
+        {
+            AdminApi!.SendMessageToPlayer(caller, Localizer["ERROR.YouCantTakeRowFromThisTeam"], Localizer["tag"]);
+            return;
+        }
+
         if (!Api!.RowToManiacs.Contains(caller))
         {
             Api.RowToManiacs.Add(caller);
@@ -161,6 +246,37 @@ public class Main : BasePlugin, IPluginConfig<PluginConfig>
         } 
     }
 
+    [ConsoleCommand("css_row_list")]
+    public void OnRowListCommand(CCSPlayerController caller, CommandInfo info)
+    {
+        var itemsString = "";
+        for (int i = 0; i < Api!.Maniacs.Count; i++)
+        {
+            var player = Api.Maniacs[i];
+            itemsString += Localizer["rowItem"].Value
+            .Replace("{i}", (i+1).ToString())
+            .Replace("{name}", player.PlayerName)
+            .Replace("{steamId}", player.SteamID.ToString())
+            .Replace("{uid}", player.UserId.ToString());
+        }
+    }
+
+    [GameEventHandler]
+    public HookResult OnPlayerSpawn(EventPlayerSpawn @event, GameEventInfo info)
+    {
+        var player = @event.Userid;
+        if (player == null) return HookResult.Continue;
+        if (player.TeamNum != 2) return HookResult.Continue;
+        Server.NextFrame(() => {
+            var pawn = player.PlayerPawn;
+            pawn.Value!.MaxHealth = Config.ManiacsHp;
+            pawn.Value!.Health = Config.ManiacsHp;
+            Utilities.SetStateChanged(pawn.Value!, "CBaseEntity", "m_iHealth");
+        });
+        return HookResult.Continue;
+    }
+    
+
     [GameEventHandler]
     public HookResult OnPlayerDisconnect(EventPlayerDisconnect @event, GameEventInfo info)
     {
@@ -172,6 +288,24 @@ public class Main : BasePlugin, IPluginConfig<PluginConfig>
         {
             XHelper.RulesProxy()!.GameRules!.TerminateRound(1f, RoundEndReason.CTsWin);
         }
+        return HookResult.Continue;
+    }
+    
+    [GameEventHandler]
+    public HookResult OnPlayerHurt(EventPlayerHurt @event, GameEventInfo info)
+    {
+        var player = @event.Userid;
+        if (player == null) return HookResult.Continue;
+        if (!Api!.Maniacs.Contains(player)) return HookResult.Continue;
+        var playerPawn = player.PlayerPawn;
+        var damage = @event.DmgHealth;
+
+        playerPawn.Value!.Health += damage;
+        playerPawn.Value!.ArmorValue += @event.DmgArmor;
+        
+        Utilities.SetStateChanged(playerPawn.Value, "CBaseEntity", "m_iHealth");
+        Utilities.SetStateChanged(playerPawn.Value, "CBasePlayerPawn", "m_pItemServices");
+        Utilities.SetStateChanged(playerPawn.Value, "CCSPlayerPawn", "m_ArmorValue");
         return HookResult.Continue;
     }
     

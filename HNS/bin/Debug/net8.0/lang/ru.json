@@ -1,15 +1,25 @@
 {
     "tag" : "[ {gold}HNS{white} ]",
     "nextManiacs" : "Маньяки в слудющем раунде: {items}",
-    "nextManiacsItem" : "\n{i}. {gold}{name}", // {i}, {name}, {steamId}, {uid}
+    "rowItem" : "\n{i}. {gold}{name}", // {i}, {name}, {steamId}, {uid}
+    "rowList" : "\n{i}. {gold}{name}", // {i}, {name}, {steamId}, {uid}
 
     "NOTIFY.EnterRow" : "Вы вошли в очередь!\nВаше место: {gold}{num}",
     "NOTIFY.ExitRow" : "{red}Вы вышли из очереди!",
     "NOTIFY.DeleteFromRowByChangeTeam" : "{red}Вы были удаленны из очереди из за смены команды!",
+    "ERROR.YouCantTakeRowFromThisTeam" : "{red}Вы не можете занять очередь в этой команде!",
 
     "NOTIFY.AdminDeleteYouFromRow" : "Админ {gold}{name}{white} добавил {gold}ВАС{white} в очередь!",
     "NOTIFY.AdminAddYouToRow" : "{red}Админ {white}{name}{red} удалил {white}ВАС{red} из очереди!",
+    "NOTIFY.PlayerRemovedFromRow" : "Игрок удалён из очереди!",
+    "NOTIFY.PlayerAddedToRow" : "Игрок добавлен в очредь!",
 
     "SERVER.EnterRow" : "Игрок {name} вошёл в очередь!",
-    "SERVER.ExitRow" : "Игрок {name} вышел из очереди!"
+    "SERVER.ExitRow" : "Игрок {name} вышел из очереди!",
+
+    "MENUTITLE.EditRow" : "Редактирование очереди",
+    "MENUTITLE.AddToRow" : "Добавление в очередь",
+    "MENUTITLE.RemoveFromRow" : "Удаление из очереди",
+    "MENUOPTION.AddToRow" : "Добавить в очередь",
+    "MENUOPTION.RemoveFromRow" : "Удалить из очереди"
 }

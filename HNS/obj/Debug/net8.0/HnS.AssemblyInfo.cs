@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HNS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5cca5a0639979058007717eee8337db3954e5d29")]
 [assembly: System.Reflection.AssemblyProductAttribute("HNS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HNS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

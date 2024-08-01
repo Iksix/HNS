@@ -17,7 +17,7 @@ public class PluginConfig : BasePluginConfig
 
     public List<string> RowCommandAliases { get; set; } = new () // Команды для входа в очередь
     {
-        "row", "m"
+        "css_row", "css_m"
     };
 
     public int ManiacsHp { get; set; } = 777;
