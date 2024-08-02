@@ -11,5 +11,6 @@
   "ManiacsHp": 777, // хп маньяков
   "RowAnnounce": true, // Отображать ли сообщение ВСЕМ о входе/выходе игрока в очередь
   "ManiacsCanTakeRow": false, // Могут ли маньяки вступать в очередь
+  "EditRowLocation" : "Main", // Расположение пункта редактирования очереди в админ меню, <Main/ManageServer/ManagePlayers/ManageBlocks>
   "ConfigVersion": 1
 }
