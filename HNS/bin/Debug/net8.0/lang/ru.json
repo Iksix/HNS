@@ -21,5 +21,6 @@
     "MENUTITLE.AddToRow" : "Добавление в очередь",
     "MENUTITLE.RemoveFromRow" : "Удаление из очереди",
     "MENUOPTION.AddToRow" : "Добавить в очередь",
-    "MENUOPTION.RemoveFromRow" : "Удалить из очереди"
+    "MENUOPTION.RemoveFromRow" : "Удалить из очереди",
+    "MENUOPTION.EditRow" : "Редактировать очередь"
 }

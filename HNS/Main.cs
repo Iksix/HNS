@@ -56,6 +56,16 @@ public class Main : BasePlugin, IPluginConfig<PluginConfig>
             CommandUsage.CLIENT_ONLY,
             OnEditRowCommand
         );
+        AdminApi.OnMenuOpen += OnMenuOpen;
+    }
+
+    private void OnMenuOpen(string key, IMenu menu, CCSPlayerController caller)
+    {
+        if (key != Config.EditRowLocation) return;
+        if (!AdminApi!.HasPermissions(caller.GetSteamId(), "edit_row", "q")) return;
+        menu.AddMenuOption(Localizer["MENUOPTION.EditRow"], (_, _) => {
+            OpenEditRowMenu(caller);
+        });
     }
 
     private void OnEditRowCommand(CCSPlayerController caller, Admin? admin, List<string> args, CommandInfo info)
@@ -134,7 +144,7 @@ public class Main : BasePlugin, IPluginConfig<PluginConfig>
         var team = commandInfo.GetArg(1);
         if (player.TeamNum == 3 && team == "2")
             return HookResult.Stop;
-        if (player.TeamNum == 2)
+        if (team == "2")
             return HookResult.Stop;
         if (player.TeamNum == 3 && team == "1")
         {
@@ -148,6 +158,7 @@ public class Main : BasePlugin, IPluginConfig<PluginConfig>
     {
         RemoveCommandListener("jointeam", OnJoinTeam, HookMode.Pre);
         RemoveCommandListener("kill", OnKillCommand, HookMode.Pre);
+        AdminApi!.OnMenuOpen -= OnMenuOpen;
     }
 
     [GameEventHandler]
