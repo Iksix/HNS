@@ -125,8 +125,8 @@ public class Main : BasePlugin, IPluginConfig<PluginConfig>
         {
             if (Api.RowToManiacs.Contains(player)) continue;
             menu.AddMenuOption(player.PlayerName, (_, _) => {
-                if (activePlayers.Contains(player)) return;
-                activePlayers.Add(player);
+                if (Api.RowToManiacs.Contains(player)) return;
+                Api.RowToManiacs.Add(player);
                 AdminApi!.SendMessageToPlayer(player, Localizer["NOTIFY.AdminAddYouToRow"].Value.Replace("{name}", caller.PlayerName), Localizer["tag"]);
                 AdminApi!.SendMessageToPlayer(caller, Localizer["NOTIFY.PlayerAddedToRow"], Localizer["tag"]);
                 OpenEditRowMenu(caller);
@@ -142,6 +142,8 @@ public class Main : BasePlugin, IPluginConfig<PluginConfig>
     {
         if (player == null) return HookResult.Continue;
         var team = commandInfo.GetArg(1);
+        if (player.TeamNum == 2)
+            return HookResult.Stop;
         if (player.TeamNum == 3 && team == "2")
             return HookResult.Stop;
         if (team == "2")
@@ -272,9 +274,9 @@ public class Main : BasePlugin, IPluginConfig<PluginConfig>
     public void OnRowListCommand(CCSPlayerController caller, CommandInfo info)
     {
         var itemsString = "";
-        for (int i = 0; i < Api!.Maniacs.Count; i++)
+        for (int i = 0; i < Api!.RowToManiacs.Count; i++)
         {
-            var player = Api.Maniacs[i];
+            var player = Api.RowToManiacs[i];
             itemsString += Localizer["rowItem"].Value
             .Replace("{i}", (i+1).ToString())
             .Replace("{name}", player.PlayerName)

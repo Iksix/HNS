@@ -9,8 +9,8 @@
     "NOTIFY.DeleteFromRowByChangeTeam": "{red}You were removed from the queue because of a team change!",
     "ERROR.YouCantTakeRowFromThisTeam": "{red}You can't take the queue in this team!",
 
-    "NOTIFY.AdminDeleteYouFromRow": "Admin {gold}{name}{white} added {gold}YOU{white} to the queue!",
-    "NOTIFY.AdminAddYouToRow": "{red}Admin {white}{name}{red} removed {white}YOU{red} from the queue!",
+    "NOTIFY.AdminAddYouToRow": "Admin {gold}{name}{white} added {gold}YOU{white} to the queue!",
+    "NOTIFY.AdminDeleteYouFromRow": "{red}Admin {white}{name}{red} removed {white}YOU{red} from the queue!",
     "NOTIFY.PlayerRemovedFromRow": "Player removed from the queue!",
     "NOTIFY.PlayerAddedToRow": "Player added to the queue!",
 

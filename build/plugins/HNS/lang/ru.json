@@ -9,8 +9,8 @@
     "NOTIFY.DeleteFromRowByChangeTeam" : "{red}Вы были удаленны из очереди из за смены команды!",
     "ERROR.YouCantTakeRowFromThisTeam" : "{red}Вы не можете занять очередь в этой команде!",
 
-    "NOTIFY.AdminDeleteYouFromRow" : "Админ {gold}{name}{white} добавил {gold}ВАС{white} в очередь!",
-    "NOTIFY.AdminAddYouToRow" : "{red}Админ {white}{name}{red} удалил {white}ВАС{red} из очереди!",
+    "NOTIFY.AdminAddYouToRow" : "Админ {gold}{name}{white} добавил {gold}ВАС{white} в очередь!",
+    "NOTIFY.AdminDeleteYouFromRow" : "{red}Админ {white}{name}{red} удалил {white}ВАС{red} из очереди!",
     "NOTIFY.PlayerRemovedFromRow" : "Игрок удалён из очереди!",
     "NOTIFY.PlayerAddedToRow" : "Игрок добавлен в очредь!",
 
