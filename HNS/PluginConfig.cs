@@ -23,6 +23,6 @@ public class PluginConfig : BasePluginConfig
     public int ManiacsHp { get; set; } = 777;
     public bool RowAnnounce {get; set;} = true; // Отображать ли сообщение ВСЕМ о входе/выходе игрока в очередь
     public bool ManiacsCanTakeRow {get; set;} = false; // Могут ли маньяки вступать в очередь
-    public string EditRowLocation {get; set;} = "Main"; // Расположение пункта редактирования очереди, <Main/ManageServer/ManagePlayers/ManageBlocks>
+    public string EditRowLocation {get; set;} = "iksadmin:menu:main"; // Расположение пункта редактирования очереди, <Main/ManageServer/ManagePlayers/ManageBlocks>
 
 }

@@ -1,6 +1,4 @@
 ﻿using CounterStrikeSharp.API.Core;
-using IksAdminApi;
-
 namespace HnSApi;
 
 public interface IHNSApi
